@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import API from "../services/api";
 import { CartContext } from "../context/CartContext";
@@ -10,21 +10,18 @@ function ProductDetails() {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-  const fetchProduct = async () => {
-    // API call
-  };
-
   fetchProduct();
-}, []);
+}, [fetchProduct]);
+  
 
-  const fetchProduct = async () => {
-    try {
-      const { data } = await API.get(`/products/${id}`);
-      setProduct(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const fetchProduct = useCallback(async () => {
+  try {
+    const { data } = await API.get(`/products/${id}`);
+    setProduct(data);
+  } catch (error) {
+    console.error(error);
+  }
+}, [id]);
 
   if (!product) {
     return (
