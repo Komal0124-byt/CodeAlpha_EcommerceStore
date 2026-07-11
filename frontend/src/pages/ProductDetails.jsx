@@ -10,8 +10,12 @@ function ProductDetails() {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    fetchProduct();
-  }, []);
+  const fetchProduct = async () => {
+    // API call
+  };
+
+  fetchProduct();
+}, []);
 
   const fetchProduct = async () => {
     try {
